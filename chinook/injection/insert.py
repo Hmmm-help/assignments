@@ -18,6 +18,7 @@ if args.roster:
     with open(args.roster) as f:
         for record in f:
             name = record.strip()
+            name = name.replace(")","").replace(";","").replace("'","")
             cur.executescript(f"INSERT INTO students (name) values ('{name}')")
             conn.commit()
         conn.close()
@@ -25,6 +26,7 @@ if args.roster:
 else:
     while True:
         name = input("Type your first and last name and hit enter to register. Hit Ctrl+C to quit.\n> ")
+        name = name.replace(")","").replace(";","").replace("'","")
         cur.execute(f"INSERT INTO students (name) VALUES ('{name}');")
         conn.commit()
-
+        conn.close()
